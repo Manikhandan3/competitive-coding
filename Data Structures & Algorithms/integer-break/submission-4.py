@@ -1,0 +1,25 @@
+from functools import cache
+class Solution:
+    def integerBreak(self, n: int) -> int:
+        # for t in range(1, n+1):
+        #     for i in (1,t+1):
+        #         if i == n:
+        #             break
+        #         cache[t] = max(cache[t],  i*cache[t-i])
+        # return cache[n]
+
+        @cache
+        def dfs(target):
+            if target == 0:
+                return 1
+            
+            res = 1
+            for i in range(1,target+1):
+                if i == n:
+                    break
+                res = max(res, i*dfs(target-i)) 
+
+            return res
+    
+        return dfs(n)
+
